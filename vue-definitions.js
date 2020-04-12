@@ -158,7 +158,7 @@ Vue.component('graph', {
         },
         hovermode: 'closest',
         font: {
-                family: 'UGentPannoText, sans-serif',
+                family: 'PannoTextNormal, sans-serif',
                 color: 'black',
                 size: 14
               },

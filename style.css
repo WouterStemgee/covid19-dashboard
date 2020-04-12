@@ -1,7 +1,15 @@
 @font-face {
-  font-family: "UGentPannoText";
+  font-family: "PannoTextNormal";
   src: url("fonts/ugentpannotext-normal-web.eot");
-  src: url("fonts/ugentpannotext-normal-web.woff") format("woff")
+  src: url("fonts/ugentpannotext-normal-web.woff") format("woff"),
+  url("fonts/ugentpannotext-normal-web.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "PannoTextMedium";
+  src: url("fonts/ugentpannotext-medium-web.eot");
+  src: url("fonts/ugentpannotext-medium-web.woff") format("woff"),
+  url("fonts/ugentpannotext-medium-web.ttf") format("ttf");
 }
 
 html, body {
@@ -11,7 +19,7 @@ html, body {
 }
 
 body {
-  font-family: 'UGentPannoText', sans-serif;
+  font-family: PannoTextNormal, Arial, sans-serif;
   font-size:1em;
   line-height: 1.5;
   font-weight: 400;
@@ -23,10 +31,11 @@ body {
 
 h1 {
   margin:0px; /* was 20 px */
-  /*
-  text-align:center;*/
+  text-align:center;
+  font-family: PannoTextMedium, Arial, sans-serif;
   font-weight:100;
   font-size:2rem;
+
 }
 
 h2 {
@@ -152,7 +161,7 @@ p {
   display: flex;
   flex-direction: column;
 
-  background-color: #fcf8e8;
+  background-color: #e9f0fa;
   padding: 1rem;
   min-width: 10rem;
 
@@ -204,8 +213,37 @@ p {
 }
 
 #slider {
+  -webkit-appearance: none;
   width: 100%;
-  min-width: 200px;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #ffd200;
+  cursor: pointer;
+}
+
+#slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+#slider:hover {
+  opacity: 1;
 }
 
 svg {
@@ -248,7 +286,7 @@ button {
   margin: auto;
   font-size: 1rem;
 
-  font-family: 'UGentPannoText', sans-serif;
+  font-family: PannoTextNormal, Arial, sans-serif;
   text-align: center;
   text-decoration: none;
 
