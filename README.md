@@ -9,8 +9,6 @@ Op deze manier is het mogelijk om een goed beeld te krijgen van de performantie 
 ## Handleiding
 - Druk op Spatie (of de Play knop) voor Play/Pauze. 
 - Druk +/- knoppen (of de slider) om de dagelijkse veranderingen te zien. 
-- Ga met de cursor over de grafiek voor meer informatie.
-- Sleep met de cursor om te zoomen op de grafiek, dubbele klik zoomt terug uit.
 - Vergeet niet je handen te wassen!
 
 ## Credits
