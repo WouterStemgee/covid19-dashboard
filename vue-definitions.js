@@ -297,7 +297,7 @@ Vue.component('graph', {
         displayModeBar: false,
         scrollZoom: true,
         editable: false,
-        staticPlot: false
+        staticPlot: true
         },
     }
   }
