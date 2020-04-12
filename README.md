@@ -1,6 +1,6 @@
 # Project Management - Covid Trends
 ## Project Control
-Dit is een interactieve grafiek/animatie dat het traject van de COVID-19 gevallen in de verschillende landen in kaart brengt.
+Dit is een interactieve grafiek/animatie die het traject van de COVID-19 gevallen in de verschillende landen in kaart brengt.
 De grafiek plot het aantal nieuw bevestigde gevallen in de voorbije week, tegenover het totaal aantal bevestigde gevallen.
 Wanneer men de gegevens op deze manier gaat plotten, wordt exponentiële groei voorgesteld als een rechte stijgende lijn.
 
@@ -14,7 +14,7 @@ Op deze manier is het mogelijk om een goed beeld te krijgen van de performantie 
 - Vergeet niet je handen te wassen!
 
 ## Credits
-De applicatie haalt gegevens op over COVID-19 die publiek gemaakt zijn door de [Johns Hopkins CSSE](https://github.com/CSSEGISandData/COVID-19) en [NYTimes](https://github.com/nytimes/covid-19-data).
+De applicatie haalt gegevens op over COVID-19 die publiek gemaakt zijn door de [Johns Hopkins CSSE](https://github.com/CSSEGISandData/COVID-19).
 
 Deze repository is een fork van de oorspronkelijke applicatie die ontwikkeld werd door [Aatish Bhatia](https://aatishb.com/).
 

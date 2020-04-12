@@ -21,7 +21,7 @@
 
         <div id="logowrapper">
 
-          <h1>Project Management - Covid Trends</h1>
+          <h1>Project Control - Covid Trends</h1>
 
         </div>
 
@@ -31,8 +31,17 @@
 
       <div id="left-column">
 
-        <graph v-if="covidData.length > 0" :data="filteredCovidData" :dates="dates" :day.sync="day" :selected-data="selectedData" :selected-region="selectedRegion" :scale="selectedScale" :resize="isHidden" @graph-mounted="graphMounted = true"></graph>
+        <p>
+          Dit is een interactieve grafiek/animatie die het traject van de COVID-19 gevallen in de verschillende landen in kaart brengt.
+          De grafiek plot het aantal nieuw bevestigde gevallen in de voorbije week, tegenover het totaal aantal bevestigde gevallen.
+          Wanneer men de gegevens op deze manier gaat plotten, wordt exponentiële groei voorgesteld als een rechte stijgende lijn.
 
+          Op deze manier is het mogelijk om een goed beeld te krijgen van de performantie van elk land zodat duidelijk wordt hoe goed elk land het momenteel gedaan heeft tot nu toe.
+
+        </p>
+
+        <graph v-if="covidData.length > 0" :data="filteredCovidData" :dates="dates" :day.sync="day" :selected-data="selectedData" :selected-region="selectedRegion" :scale="selectedScale" :resize="isHidden" @graph-mounted="graphMounted = true"></graph>
+        <br>
         <div v-if="covidData.length > 0" id="nav">
 
           <div class="navelement">
@@ -51,13 +60,6 @@
             <input v-if="dates.length > 7" type="range" :min="minDay > 0 ? minDay : dates.length" :max="dates.length" step="1" v-model="day" id="slider" @mousedown="pause"></input>
           </div>
 
-          <div class="navelement">
-            <select v-model="selectedScale" @mousedown="pause">
-              <option v-for="s in scale" v-bind:value="s">
-                {{ s }}
-              </option>
-            </select>
-          </div>
 
         </div>
 
@@ -72,7 +74,7 @@
       <div id="right-column">
 
         <div>
-          <h2>Customize</h2>
+          <h2>Gegevens</h2>
 
           <select v-model="selectedData" @mousedown="pause">
             <option v-for="d in dataTypes" v-bind:value="d">
@@ -80,34 +82,11 @@
             </option>
           </select>
 
-          <select v-model="selectedRegion" @mousedown="pause">
-            <option v-for="s in regions" v-bind:value="s">
-              {{ s }}
-            </option>
-          </select>
-
-          <select v-model="selectedScale" @mousedown="pause">
-            <option v-for="s in scale" v-bind:value="s">
-              {{ s }}
-            </option>
-          </select>
-
         </div>
 
         <div id="countries">
 
-          <h2>{{regionType}}</h2>
-
-          <p>{{regionType}} with at least {{minCasesInCountry}} {{selectedData}}</p>
-
-          <div id="search">
-            <input v-model="searchField" placeholder="Search"></input>
-          </div>
-
-          <div id="buttonwrapper">
-            <button @click="deselectAll">Deselect All</button>
-            <button @click="selectAll">Select All</button>
-          </div>
+          <h2>Landen</h2>
 
           <ul style="padding-top: 0.5rem;">
             <li v-for="country in visibleCountries">
@@ -115,14 +94,6 @@
               <label :for="country">{{country}}</label>
             </li>
           </ul>
-
-        </div>
-
-        <div>
-
-          <div id="buttonwrapper">
-            <button @click="createURL" @mousedown="pause">{{copied ? 'Link Copied to Clipboard!' : 'Create Shareable Link'}}</button>
-          </div>
 
         </div>
 
@@ -136,14 +107,5 @@
   <script src="vue-definitions.js"></script>
 
 </body>
-
-
-<!-- Open Graph data -->
-<meta property="og:title" content="Covid Trends" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://aatishb.com/covidtrends/" />
-<meta property="og:image" content="https://aatishb.com/covidtrends/logos/covid-trends-logo-nowords.png" />
-<meta property="og:description" content="Visualizing the exponential growth of COVID-19 across the world." />
-
 
 </html>

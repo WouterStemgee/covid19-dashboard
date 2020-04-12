@@ -50,7 +50,7 @@ Vue.component('graph', {
         let name = this.traces[curveNumber].name;
         this.traceIndices = this.traces.map((e,i) => e.name == name ? i : -1).filter(e => e >= 0);
 
-        let update = {'line':{color: 'rgba(254, 52, 110, 1)'}};
+        let update = {'line':{color: 'rgb(30,100,200)'}};
 
         for (let i of this.traceIndices) {
           Plotly.restyle(this.$refs.graph, update, [i]);
@@ -70,7 +70,7 @@ Vue.component('graph', {
 
     formatDate(date) {
       let [m, d, y] = date.split('/');
-      return new Date(2000 + (+y), m-1, d).toISOString().slice(0, 10);
+      return new Date(2000 + (+y), m-1, d).toLocaleString().slice(0, 9).trim();
     },
 
     updateTraces() {
@@ -81,8 +81,9 @@ Vue.component('graph', {
         x: e.cases,
         y: e.slope,
         name: e.country,
-        //text: this.dates.map(date => e.country + '<br>' + this.formatDate(date) ),
-        text: this.dates.map(date => e.country + '<br>' + date ),
+        text: this.dates.map(date => e.country + '<br>' + this.formatDate(date) ),
+        text: this.dates.map(date => e.country + '<br>' + this.formatDate(date) ),
+        //text: this.dates.map(date => e.country + '<br>' + date ),
         mode: showDailyMarkers ? 'lines+markers' : 'lines',
         type: 'scatter',
         legendgroup: i,
@@ -94,7 +95,7 @@ Vue.component('graph', {
           color: 'rgba(0,0,0,0.15)'
         },
         hoverinfo:'x+y+text',
-        hovertemplate: '%{text}<br>Total ' + this.selectedData +': %{x:,}<br>Weekly ' + this.selectedData +': %{y:,}<extra></extra>',
+        hovertemplate: '%{text}<br>Totaal ' + this.selectedData +': %{x:,}<br>Weekelijkse ' + this.selectedData +': %{y:,}<extra></extra>',
       })
       );
 
@@ -108,9 +109,9 @@ Vue.component('graph', {
         textposition: 'top left',
         marker: {
           size: 6,
-          color: 'rgba(254, 52, 110, 1)'
+          color: 'rgb(30,100,200)'
         },
-        hovertemplate: '%{data.text}<br>Total ' + this.selectedData +': %{x:,}<br>Weekly ' + this.selectedData +': %{y:,}<extra></extra>',
+        hovertemplate: '%{data.text}<br>Totaal ' + this.selectedData +': %{x:,}<br>Weekelijkse ' + this.selectedData +': %{y:,}<extra></extra>',
 
       })
       );
@@ -134,30 +135,30 @@ Vue.component('graph', {
       }
 
       this.layout = {
-        //title: 'Trajectory of COVID-19 '+ this.selectedData + ' (' + this.formatDate(this.dates[this.day - 1]) + ')',
-        title: 'Trajectory of COVID-19 '+ this.selectedData + ' (' + this.dates[this.day - 1] + ')',
+        title: 'Traject van COVID-19 '+ this.selectedData + ' (' + this.formatDate(this.dates[this.day - 1]) + ')',
+        //title: 'Trajectory of COVID-19 '+ this.selectedData + ' (' + this.dates[this.day - 1] + ')',
         showlegend: false,
         xaxis: {
-          title: 'Total ' + this.selectedData,
-          type: this.scale == 'Logarithmic Scale' ? 'log' : 'linear',
+          title: 'Totaal aantal ' + this.selectedData,
+          type: this.scale == 'logaritmische schaal' ? 'log' : 'linear',
           range: this.xrange,
           titlefont: {
             size: 24,
-            color: 'rgba(254, 52, 110,1)'
+            color: 'rgb(30,100,200)'
           },
         },
         yaxis: {
-          title: 'New ' + this.selectedData + ' (in the Past Week)',
-          type: this.scale == 'Logarithmic Scale' ? 'log' : 'linear',
+          title: 'Nieuwe aantal ' + this.selectedData + ' (in de voorbije week)',
+          type: this.scale == 'logaritmische schaal' ? 'log' : 'linear',
           range: this.yrange,
           titlefont: {
             size: 24,
-            color: 'rgba(254, 52, 110,1)'
+            color: 'rgb(30,100,200)'
           },
         },
         hovermode: 'closest',
         font: {
-                family: 'Open Sans, sans-serif',
+                family: 'UGentPannoText, sans-serif',
                 color: 'black',
                 size: 14
               },
@@ -198,7 +199,7 @@ Vue.component('graph', {
     setxrange() {
       let xmax = Math.max(...this.filteredCases, 50);
 
-      if (this.scale == 'Logarithmic Scale') {
+      if (this.scale == 'logaritmische schaal') {
         this.xrange = [1, Math.ceil(Math.log10(1.5*xmax))]
       } else {
         this.xrange = [-0.49*Math.pow(10,Math.floor(Math.log10(xmax))), Math.round(1.05 * xmax)];
@@ -210,7 +211,7 @@ Vue.component('graph', {
       let ymax = Math.max(...this.filteredSlope, 50);
       let ymin = Math.min(...this.filteredSlope);
 
-      if (this.scale == 'Logarithmic Scale') {
+      if (this.scale == 'logaritmische schaal') {
         if (ymin < 10) {
           // shift ymin on log scale when fewer than 10 cases
           this.yrange = [0, Math.ceil(Math.log10(1.5*ymax))]
@@ -292,7 +293,11 @@ Vue.component('graph', {
             height: 800,
             width: 1200,
             scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-          }
+          },
+        displayModeBar: false,
+        scrollZoom: true,
+        editable: false,
+        staticPlot: false
         },
     }
   }
@@ -322,18 +327,18 @@ let app = new Vue({
         let myScale = urlParameters.get('scale').toLowerCase();
 
         if (myScale == 'log') {
-          this.selectedScale = 'Logarithmic Scale';
+          this.selectedScale = 'logaritmische schaal';
         } else if (myScale == 'linear') {
-          this.selectedScale = 'Linear Scale';
+          this.selectedScale = 'lineaire schaal';
         }
       }
 
       if (urlParameters.has('data')) {
         let myData = urlParameters.get('data').toLowerCase();
         if (myData == 'cases') {
-          this.selectedData = 'Confirmed Cases';
+          this.selectedData = 'bevestigde gevallen';
         } else if (myData == 'deaths') {
-          this.selectedData = 'Reported Deaths';
+          this.selectedData = 'bevestigde sterfgevallen';
         }
 
       }
@@ -468,16 +473,16 @@ let app = new Vue({
       //console.log('pulling', selectedData, ' for ', selectedRegion);
       if (selectedRegion != 'US') {
         let url;
-        if (selectedData == 'Confirmed Cases') {
+        if (selectedData == 'bevestigde gevallen') {
          url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv';
-        } else if (selectedData == 'Reported Deaths') {
+        } else if (selectedData == 'bevestigde sterfgevallen') {
          url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv';
         } else {
           return;
         }
         Plotly.d3.csv(url, (data) => this.processData(data, selectedRegion, updateSelectedCountries));
       } else { // selectedRegion == 'US'
-        const type = (selectedData == 'Reported Deaths') ? 'deaths' : 'cases'
+        const type = (selectedData == 'bevestigde sterfgevallen') ? 'deaths' : 'cases'
         const url = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
         Plotly.d3.csv(url, (data) => this.processData(this.preprocessNYTData(data, type), selectedRegion, updateSelectedCountries));
       }
@@ -586,18 +591,15 @@ let app = new Vue({
       this.countries = this.covidData.map(e => e.country).sort();
       this.visibleCountries = this.countries;
       const topCountries = this.covidData.sort((a, b) => b.maxCases - a.maxCases).slice(0, 9).map(e => e.country);
-      const notableCountries = ['China', 'India', 'US', // Top 3 by population
-          'South Korea', 'Japan', // Observed success so far
-          'Hong Kong',            // Was previously included in China's numbers
-          'Canada', 'Australia']; // These appear in the region selector
+      const notableCountries = ['China', 'US', 'Belgium', 'Netherlands', 'Singapore', 'Italy']; // These appear in the region selector
 
       // TODO: clean this logic up later
       // expected behavior: generate/overwrite selected locations if: 1. data loaded from URL, but no selected locations are loaded. 2. data refreshed (e.g. changing region)
-      // but do not overwrite selected locations if 1. selected locations loaded from URL. 2. We switch between confirmed cases <-> deaths
-      if ((this.selectedCountries.length === 0 || !this.firstLoad) && updateSelectedCountries) {
+      // but do not overwrite selected locations if 1. selected locations loaded from URL. 2. We switch between bevestigde gevallen <-> deaths
+      //if ((this.selectedCountries.length === 0 || !this.firstLoad) && updateSelectedCountries) {
         //console.log('generating new selected countries list');
-        this.selectedCountries = this.countries.filter(e => topCountries.includes(e) || notableCountries.includes(e));
-      }
+        this.selectedCountries = this.countries.filter(e => notableCountries.includes(e));
+      //}
 
       this.firstLoad = false;
 
@@ -685,11 +687,11 @@ let app = new Vue({
 
       let queryUrl = new URLSearchParams();
 
-      if (this.selectedScale == 'Linear Scale') {
+      if (this.selectedScale == 'lineaire schaal') {
         queryUrl.append('scale', 'linear');
       }
 
-      if (this.selectedData == 'Reported Deaths') {
+      if (this.selectedData == 'bevestigde sterfgevallen') {
         queryUrl.append('data', 'deaths');
       }
 
@@ -785,11 +787,11 @@ let app = new Vue({
 
     paused: true,
 
-    dataTypes: ['Confirmed Cases', 'Reported Deaths'],
+    dataTypes: ['bevestigde gevallen', 'bevestigde sterfgevallen'],
 
-    selectedData: 'Confirmed Cases',
+    selectedData: 'bevestigde gevallen',
 
-    regions: ['World', 'US', 'China', 'Australia', 'Canada'],
+    regions: ['World'],
 
     selectedRegion: 'World',
 
@@ -799,9 +801,9 @@ let app = new Vue({
 
     icon: 'icons/play.svg',
 
-    scale: ['Logarithmic Scale', 'Linear Scale'],
+    scale: ['logaritmische schaal', 'lineaire schaal'],
 
-    selectedScale: 'Logarithmic Scale',
+    selectedScale: 'logaritmische schaal',
 
     minCasesInCountry: 50,
 
