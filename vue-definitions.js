@@ -591,7 +591,7 @@ let app = new Vue({
       this.countries = this.covidData.map(e => e.country).sort();
       this.visibleCountries = this.countries;
       const topCountries = this.covidData.sort((a, b) => b.maxCases - a.maxCases).slice(0, 9).map(e => e.country);
-      const notableCountries = ['China', 'US', 'Belgium', 'Netherlands', 'Singapore', 'Italy']; // These appear in the region selector
+      const notableCountries = ['China (Mainland)', 'US', 'Belgium', 'Netherlands', 'Singapore', 'Italy']; // These appear in the region selector
 
       // TODO: clean this logic up later
       // expected behavior: generate/overwrite selected locations if: 1. data loaded from URL, but no selected locations are loaded. 2. data refreshed (e.g. changing region)
