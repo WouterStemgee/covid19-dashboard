@@ -4,7 +4,7 @@ Dit is een interactieve grafiek/animatie die het traject van de COVID-19 gevalle
 De grafiek plot het aantal nieuw bevestigde gevallen in de voorbije week, tegenover het totaal aantal bevestigde gevallen.
 Wanneer men de gegevens op deze manier gaat plotten, wordt exponentiële groei voorgesteld als een rechte stijgende lijn.
 
-Op deze manier is het mogelijk om een goed beeld te krijgen van de performantie van elk land zodat duidelijk wordt hoe goed elk land het momenteel gedaan heeft tot nu toe.
+Op deze manier is het mogelijk om een goed beeld te krijgen van de performantie van elk land zodat duidelijk wordt hoe goed elk land het gedaan heeft tot nu toe.
 
 ## Handleiding
 - Druk op Spatie (of de Play knop) voor Play/Pauze. 
